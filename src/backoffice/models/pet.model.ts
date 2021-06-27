@@ -1,6 +1,6 @@
 import { PetKind } from '../enums/pet-kind.enum';
 
-export interface Pet {
+export class Pet {
   name: string;
   gender: string;
   kind: PetKind;

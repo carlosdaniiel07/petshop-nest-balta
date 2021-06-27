@@ -1,4 +1,4 @@
-export interface CreditCard {
+export class CreditCard {
   holder: string;
   number: string;
   expiration: string;
