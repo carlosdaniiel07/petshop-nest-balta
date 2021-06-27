@@ -16,8 +16,9 @@ export class CustomerService {
   ) {}
 
   async save(createCustomerDto: CreateCustomerDto): Promise<void> {
-    const { document, email, name, password } = createCustomerDto;
+    this.logger.log(`Criando cliente => ${JSON.stringify(createCustomerDto)}`);
 
+    const { document, email, name, password } = createCustomerDto;
     const emailAlreadyUsed = await this.customerModel.exists({ email });
 
     if (emailAlreadyUsed) {
