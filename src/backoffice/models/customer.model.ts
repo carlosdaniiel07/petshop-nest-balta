@@ -1,8 +1,8 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import * as mongoose from 'mongoose';
 
-import { Address } from './address.model';
-import { CreditCard } from './credit-card.model';
+import { Address, AddressSchema } from './address.model';
+import { CreditCard, CreditCardSchema } from './credit-card.model';
 import { Pet } from './pet.model';
 import { User } from './user.model';
 
@@ -20,13 +20,13 @@ export class Customer {
   @Prop([Pet])
   pets: Pet[];
 
-  @Prop(Address)
+  @Prop({ type: AddressSchema })
   billingAddress: Address;
 
-  @Prop(Address)
+  @Prop({ type: AddressSchema })
   shippingAddress: Address;
 
-  @Prop(CreditCard)
+  @Prop({ type: CreditCardSchema })
   creditCard: CreditCard;
 
   @Prop({ type: mongoose.Schema.Types.ObjectId, ref: 'Users', required: true })

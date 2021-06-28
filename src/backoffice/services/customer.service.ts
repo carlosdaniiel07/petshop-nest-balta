@@ -2,6 +2,7 @@ import { Injectable, Logger } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { ApiException } from 'src/shared/models/api-exception.model';
+import { CreateAddressDto } from '../dto/create-address.dto';
 import { CreateCustomerDto } from '../dto/create-customer.dto';
 import { Customer } from '../models/customer.model';
 import { AccountService } from './account.service';
@@ -39,5 +40,38 @@ export class CustomerService {
       email,
       user: createdUser,
     }).save();
+  }
+
+  async saveBillingAddress(
+    document: string,
+    createAddressDto: CreateAddressDto,
+  ): Promise<void> {
+    await this.customerModel.findOneAndUpdate(
+      { document },
+      {
+        $set: {
+          billingAddress: createAddressDto,
+        },
+      },
+      {
+        upsert: true,
+        useFindAndModify: false,
+      },
+    );
+  }
+
+  async saveShippingAddress(document: string, createAddressDto: CreateAddressDto): Promise<void> {
+    await this.customerModel.findOneAndUpdate(
+      { document },
+      {
+        $set: {
+          shippingAddress: createAddressDto,
+        },
+      },
+      {
+        upsert: true,
+        useFindAndModify: false,
+      },
+    );
   }
 }
