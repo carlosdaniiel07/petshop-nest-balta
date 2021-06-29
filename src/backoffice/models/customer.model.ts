@@ -29,7 +29,7 @@ export class Customer {
   @Prop({ type: CreditCardSchema })
   creditCard: CreditCard;
 
-  @Prop({ type: mongoose.Schema.Types.ObjectId, ref: 'Users', required: true })
+  @Prop({ type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true })
   user: User;
 }
 
