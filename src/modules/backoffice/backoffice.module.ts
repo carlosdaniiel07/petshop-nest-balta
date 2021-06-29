@@ -1,10 +1,10 @@
 import { Module } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
-import { CustomerController } from './controllers/customer.controller';
-import { CustomerSchema } from './models/customer.model';
-import { UserSchema } from './models/user.model';
-import { AccountService } from './services/account.service';
-import { CustomerService } from './services/customer.service';
+import { CustomerController } from '@modules/backoffice/controllers/customer.controller';
+import { CustomerSchema } from '@modules/backoffice/models/customer.model';
+import { UserSchema } from '@modules/backoffice/models/user.model';
+import { AccountService } from '@modules/backoffice/services/account.service';
+import { CustomerService } from '@modules/backoffice/services/customer.service';
 
 @Module({
   imports: [

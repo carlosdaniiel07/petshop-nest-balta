@@ -2,7 +2,7 @@ import { Module } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { BackofficeModule } from './modules/backoffice/backoffice.module';
+import { BackofficeModule } from '@modules/backoffice/backoffice.module';
 
 @Module({
   imports: [

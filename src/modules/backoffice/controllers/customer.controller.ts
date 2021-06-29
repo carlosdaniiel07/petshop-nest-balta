@@ -1,10 +1,21 @@
-import { Body, Controller, Get, Param, ParseIntPipe, Post, Put, Query } from '@nestjs/common';
-import { CreateAddressDto } from '../dto/create-address.dto';
-import { CreateCustomerDto } from '../dto/create-customer.dto';
-import { CreatePetDto } from '../dto/create-pet.dto';
-import { UpdatePetDto } from '../dto/update-pet.dto';
-import { Customer } from '../models/customer.model';
-import { CustomerService } from '../services/customer.service';
+import {
+  Body,
+  Controller,
+  Get,
+  Param,
+  ParseIntPipe,
+  Post,
+  Put,
+  Query,
+} from '@nestjs/common';
+import {
+  CreateAddressDto,
+  CreateCustomerDto,
+  CreatePetDto,
+  UpdatePetDto,
+} from '@modules/backoffice/dto';
+import { Customer } from '@modules/backoffice/models/customer.model';
+import { CustomerService } from '@modules/backoffice/services/customer.service';
 
 @Controller('v1/customers')
 export class CustomerController {

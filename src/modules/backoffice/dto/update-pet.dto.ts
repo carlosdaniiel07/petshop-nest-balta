@@ -1,5 +1,5 @@
 import { IsEnum, IsIn, IsNotEmpty } from 'class-validator';
-import { PetKind } from '../enums/pet-kind.enum';
+import { PetKind } from '@modules/backoffice/enums/pet-kind.enum';
 
 export class UpdatePetDto {
   @IsNotEmpty()
