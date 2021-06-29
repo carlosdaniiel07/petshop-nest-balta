@@ -12,6 +12,7 @@ import {
   CreateAddressDto,
   CreateCustomerDto,
   CreatePetDto,
+  UpdateCustomerDto,
   UpdatePetDto,
 } from '@modules/backoffice/dto';
 import { Customer } from '@modules/backoffice/models/customer.model';
@@ -48,6 +49,14 @@ export class CustomerController {
   @Post()
   async save(@Body() createCustomerDto: CreateCustomerDto): Promise<void> {
     return await this.customerService.save(createCustomerDto);
+  }
+
+  @Put(':document')
+  async update(
+    @Param('document') document: string,
+    @Body() updateCustomerDto: UpdateCustomerDto,
+  ): Promise<void> {
+    return await this.customerService.update(document, updateCustomerDto);
   }
 
   @Put(':document/addresses/billing')

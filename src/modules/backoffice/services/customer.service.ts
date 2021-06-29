@@ -2,7 +2,11 @@ import { Injectable, Logger } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { ApiException } from '@shared/models/api-exception.model';
-import { CreateCustomerDto, QueryDto } from '@modules/backoffice/dto';
+import {
+  CreateCustomerDto,
+  QueryDto,
+  UpdateCustomerDto,
+} from '@modules/backoffice/dto';
 import { Customer } from '@modules/backoffice/models/customer.model';
 import { AccountService } from './account.service';
 
@@ -70,5 +74,20 @@ export class CustomerService {
       email,
       user: createdUser,
     }).save();
+  }
+
+  async update(
+    document: string,
+    updateCustomerDto: UpdateCustomerDto,
+  ): Promise<void> {
+    await this.customerModel.findOneAndUpdate(
+      { document },
+      {
+        $set: {
+          name: updateCustomerDto.name,
+        },
+      },
+      { useFindAndModify: false },
+    );
   }
 }
