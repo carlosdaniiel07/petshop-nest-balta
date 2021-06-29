@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Param, Post, Put } from '@nestjs/common';
+import { Body, Controller, Get, Param, ParseIntPipe, Post, Put, Query } from '@nestjs/common';
 import { CreateAddressDto } from '../dto/create-address.dto';
 import { CreateCustomerDto } from '../dto/create-customer.dto';
 import { CreatePetDto } from '../dto/create-pet.dto';
@@ -13,6 +13,14 @@ export class CustomerController {
   @Get()
   async list(): Promise<Customer[]> {
     return await this.service.findAll();
+  }
+
+  @Get('search')
+  async search(
+    @Query('skip', ParseIntPipe) skip: number,
+    @Query('take', ParseIntPipe) take: number,
+  ): Promise<Customer[]> {
+    return await this.service.findAllWithPagination({ skip, take });
   }
 
   @Get(':document/details')

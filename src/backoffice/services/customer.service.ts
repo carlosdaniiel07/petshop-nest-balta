@@ -5,6 +5,7 @@ import { ApiException } from 'src/shared/models/api-exception.model';
 import { CreateAddressDto } from '../dto/create-address.dto';
 import { CreateCustomerDto } from '../dto/create-customer.dto';
 import { CreatePetDto } from '../dto/create-pet.dto';
+import { QueryDto } from '../dto/query.dto';
 import { UpdatePetDto } from '../dto/update-pet.dto';
 import { Customer } from '../models/customer.model';
 import { AccountService } from './account.service';
@@ -21,6 +22,23 @@ export class CustomerService {
   async findAll(): Promise<Customer[]> {
     return await this.customerModel
       .find({}, 'name email document')
+      .sort('name')
+      .exec();
+  }
+
+  async findAllWithPagination({
+    skip = 0,
+    take = 10,
+  }: QueryDto): Promise<Customer[]> {
+    return await this.customerModel
+      .find(
+        {},
+        {},
+        {
+          skip,
+          limit: take,
+        },
+      )
       .sort('name')
       .exec();
   }
