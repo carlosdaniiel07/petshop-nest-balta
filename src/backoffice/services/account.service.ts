@@ -12,8 +12,6 @@ export class AccountService {
   constructor(@InjectModel('User') private readonly userModel: Model<User>) {}
 
   async createUser(createUserDto: CreateUserDto): Promise<User> {
-    this.logger.log(`Criando usuário => ${JSON.stringify(createUserDto)}`);
-
     const alreadyExists = await this.userModel.exists({
       username: createUserDto.username,
     });
