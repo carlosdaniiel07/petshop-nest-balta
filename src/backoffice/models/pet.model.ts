@@ -1,7 +1,9 @@
-import { Prop } from '@nestjs/mongoose';
+import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
+import { Document } from 'mongoose';
 import { PetKind } from '../enums/pet-kind.enum';
 
-export class Pet {
+@Schema()
+export class Pet extends Document {
   @Prop({ required: true })
   name: string;
 
@@ -11,3 +13,5 @@ export class Pet {
   @Prop({ type: String })
   kind: PetKind;
 }
+
+export const PetSchema = SchemaFactory.createForClass(Pet);

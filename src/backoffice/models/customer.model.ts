@@ -3,7 +3,7 @@ import * as mongoose from 'mongoose';
 
 import { Address, AddressSchema } from './address.model';
 import { CreditCard, CreditCardSchema } from './credit-card.model';
-import { Pet } from './pet.model';
+import { Pet, PetSchema } from './pet.model';
 import { User } from './user.model';
 
 @Schema()
@@ -17,7 +17,7 @@ export class Customer {
   @Prop({ required: true, trim: true, unique: true })
   email: string;
 
-  @Prop([Pet])
+  @Prop([{ type: PetSchema }])
   pets: Pet[];
 
   @Prop({ type: AddressSchema })

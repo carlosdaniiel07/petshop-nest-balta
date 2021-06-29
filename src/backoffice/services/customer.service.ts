@@ -4,6 +4,8 @@ import { Model } from 'mongoose';
 import { ApiException } from 'src/shared/models/api-exception.model';
 import { CreateAddressDto } from '../dto/create-address.dto';
 import { CreateCustomerDto } from '../dto/create-customer.dto';
+import { CreatePetDto } from '../dto/create-pet.dto';
+import { UpdatePetDto } from '../dto/update-pet.dto';
 import { Customer } from '../models/customer.model';
 import { AccountService } from './account.service';
 
@@ -60,7 +62,10 @@ export class CustomerService {
     );
   }
 
-  async saveShippingAddress(document: string, createAddressDto: CreateAddressDto): Promise<void> {
+  async saveShippingAddress(
+    document: string,
+    createAddressDto: CreateAddressDto,
+  ): Promise<void> {
     await this.customerModel.findOneAndUpdate(
       { document },
       {
@@ -70,6 +75,45 @@ export class CustomerService {
       },
       {
         upsert: true,
+        useFindAndModify: false,
+      },
+    );
+  }
+
+  async addPet(document: string, createPetDto: CreatePetDto): Promise<void> {
+    await this.customerModel.findOneAndUpdate(
+      {
+        document,
+      },
+      {
+        $push: {
+          pets: createPetDto,
+        },
+      },
+      {
+        upsert: true,
+        useFindAndModify: false,
+        new: true,
+      },
+    );
+  }
+
+  async updatePet(
+    document: string,
+    petId: string,
+    updatePetDto: UpdatePetDto,
+  ): Promise<void> {
+    await this.customerModel.findOneAndUpdate(
+      {
+        document,
+        'pets._id': petId,
+      },
+      {
+        $set: {
+          'pets.$': updatePetDto,
+        },
+      },
+      {
         useFindAndModify: false,
       },
     );
