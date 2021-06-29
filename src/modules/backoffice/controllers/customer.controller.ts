@@ -10,6 +10,7 @@ import {
 } from '@nestjs/common';
 import {
   CreateAddressDto,
+  CreateCreditCardDto,
   CreateCustomerDto,
   CreatePetDto,
   UpdateCustomerDto,
@@ -96,5 +97,16 @@ export class CustomerController {
     @Body() updatePetDto: UpdatePetDto,
   ): Promise<void> {
     return await this.petService.update(document, petId, updatePetDto);
+  }
+
+  @Put(':document/credit-card')
+  async saveCreditCard(
+    @Param('document') document: string,
+    @Body() createCreditCardDto: CreateCreditCardDto,
+  ): Promise<void> {
+    return await this.customerService.saveCreditCard(
+      document,
+      createCreditCardDto,
+    );
   }
 }

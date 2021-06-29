@@ -3,6 +3,7 @@ import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { ApiException } from '@shared/models/api-exception.model';
 import {
+  CreateCreditCardDto,
   CreateCustomerDto,
   QueryDto,
   UpdateCustomerDto,
@@ -88,6 +89,26 @@ export class CustomerService {
         },
       },
       { useFindAndModify: false },
+    );
+  }
+
+  async saveCreditCard(
+    document: string,
+    createCreditCardDto: CreateCreditCardDto,
+  ): Promise<void> {
+    await this.customerModel.findOneAndUpdate(
+      {
+        document,
+      },
+      {
+        $set: {
+          creditCard: createCreditCardDto,
+        },
+      },
+      {
+        upsert: true,
+        useFindAndModify: false,
+      },
     );
   }
 }

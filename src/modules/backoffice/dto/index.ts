@@ -5,3 +5,4 @@ export { CreateUserDto } from './create-user.dto';
 export { QueryDto } from './query.dto';
 export { UpdatePetDto } from './update-pet.dto';
 export { UpdateCustomerDto } from './update-customer.dto';
+export { CreateCreditCardDto } from './create-credit-card.dto';
