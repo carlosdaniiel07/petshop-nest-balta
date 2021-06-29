@@ -16,7 +16,7 @@ import {
 } from '@modules/backoffice/dto';
 import { Customer } from '@modules/backoffice/models/customer.model';
 import { CustomerService } from '@modules/backoffice/services/customer.service';
-import { AddressService } from '../services/address.service';
+import { AddressService } from '@modules/backoffice/services/address.service';
 
 @Controller('v1/customers')
 export class CustomerController {
