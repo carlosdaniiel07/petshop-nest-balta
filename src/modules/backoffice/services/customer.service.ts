@@ -3,7 +3,6 @@ import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { ApiException } from '@shared/models/api-exception.model';
 import {
-  CreateAddressDto,
   CreateCustomerDto,
   CreatePetDto,
   QueryDto,
@@ -76,42 +75,6 @@ export class CustomerService {
       email,
       user: createdUser,
     }).save();
-  }
-
-  async saveBillingAddress(
-    document: string,
-    createAddressDto: CreateAddressDto,
-  ): Promise<void> {
-    await this.customerModel.findOneAndUpdate(
-      { document },
-      {
-        $set: {
-          billingAddress: createAddressDto,
-        },
-      },
-      {
-        upsert: true,
-        useFindAndModify: false,
-      },
-    );
-  }
-
-  async saveShippingAddress(
-    document: string,
-    createAddressDto: CreateAddressDto,
-  ): Promise<void> {
-    await this.customerModel.findOneAndUpdate(
-      { document },
-      {
-        $set: {
-          shippingAddress: createAddressDto,
-        },
-      },
-      {
-        upsert: true,
-        useFindAndModify: false,
-      },
-    );
   }
 
   async addPet(document: string, createPetDto: CreatePetDto): Promise<void> {
