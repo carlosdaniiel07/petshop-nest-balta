@@ -17,12 +17,14 @@ import {
 import { Customer } from '@modules/backoffice/models/customer.model';
 import { CustomerService } from '@modules/backoffice/services/customer.service';
 import { AddressService } from '@modules/backoffice/services/address.service';
+import { PetService } from '@modules/backoffice/services/pet.service';
 
 @Controller('v1/customers')
 export class CustomerController {
   constructor(
     private readonly customerService: CustomerService,
     private readonly addressService: AddressService,
+    private readonly petService: PetService,
   ) {}
 
   @Get()
@@ -75,7 +77,7 @@ export class CustomerController {
     @Param('document') document: string,
     @Body() createPetDto: CreatePetDto,
   ): Promise<void> {
-    return await this.customerService.addPet(document, createPetDto);
+    return await this.petService.save(document, createPetDto);
   }
 
   @Put(':document/pets/:petId')
@@ -84,6 +86,6 @@ export class CustomerController {
     @Param('petId') petId: string,
     @Body() updatePetDto: UpdatePetDto,
   ): Promise<void> {
-    return await this.customerService.updatePet(document, petId, updatePetDto);
+    return await this.petService.update(document, petId, updatePetDto);
   }
 }

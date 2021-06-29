@@ -2,12 +2,7 @@ import { Injectable, Logger } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { ApiException } from '@shared/models/api-exception.model';
-import {
-  CreateCustomerDto,
-  CreatePetDto,
-  QueryDto,
-  UpdatePetDto,
-} from '@modules/backoffice/dto';
+import { CreateCustomerDto, QueryDto } from '@modules/backoffice/dto';
 import { Customer } from '@modules/backoffice/models/customer.model';
 import { AccountService } from './account.service';
 
@@ -75,44 +70,5 @@ export class CustomerService {
       email,
       user: createdUser,
     }).save();
-  }
-
-  async addPet(document: string, createPetDto: CreatePetDto): Promise<void> {
-    await this.customerModel.findOneAndUpdate(
-      {
-        document,
-      },
-      {
-        $push: {
-          pets: createPetDto,
-        },
-      },
-      {
-        upsert: true,
-        useFindAndModify: false,
-        new: true,
-      },
-    );
-  }
-
-  async updatePet(
-    document: string,
-    petId: string,
-    updatePetDto: UpdatePetDto,
-  ): Promise<void> {
-    await this.customerModel.findOneAndUpdate(
-      {
-        document,
-        'pets._id': petId,
-      },
-      {
-        $set: {
-          'pets.$': updatePetDto,
-        },
-      },
-      {
-        useFindAndModify: false,
-      },
-    );
   }
 }
