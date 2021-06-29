@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { CreateAddressDto } from '@modules/backoffice/dto';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
-import { Customer } from '../models/customer.model';
+import { Customer } from '@modules/backoffice/models/customer.model';
 
 @Injectable()
 export class AddressService {
