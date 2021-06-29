@@ -18,9 +18,23 @@ export class CustomerService {
     private readonly accountService: AccountService,
   ) {}
 
-  async save(createCustomerDto: CreateCustomerDto): Promise<void> {
-    this.logger.log(`Criando cliente => ${JSON.stringify(createCustomerDto)}`);
+  async findAll(): Promise<Customer[]> {
+    return await this.customerModel
+      .find({}, 'name email document')
+      .sort('name')
+      .exec();
+  }
 
+  async findByDocument(document: string): Promise<Customer> {
+    return await this.customerModel
+      .findOne({
+        document,
+      })
+      .populate('user', 'username')
+      .exec();
+  }
+
+  async save(createCustomerDto: CreateCustomerDto): Promise<void> {
     const { document, email, name, password } = createCustomerDto;
     const emailAlreadyUsed = await this.customerModel.exists({ email });
 

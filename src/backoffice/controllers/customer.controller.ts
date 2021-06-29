@@ -1,13 +1,24 @@
-import { Body, Controller, Param, Post, Put } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post, Put } from '@nestjs/common';
 import { CreateAddressDto } from '../dto/create-address.dto';
 import { CreateCustomerDto } from '../dto/create-customer.dto';
 import { CreatePetDto } from '../dto/create-pet.dto';
 import { UpdatePetDto } from '../dto/update-pet.dto';
+import { Customer } from '../models/customer.model';
 import { CustomerService } from '../services/customer.service';
 
 @Controller('v1/customers')
 export class CustomerController {
   constructor(private readonly service: CustomerService) {}
+
+  @Get()
+  async list(): Promise<Customer[]> {
+    return await this.service.findAll();
+  }
+
+  @Get(':document/details')
+  async getDetails(@Param('document') document: string): Promise<Customer> {
+    return await this.service.findByDocument(document);
+  }
 
   @Post()
   async save(@Body() createCustomerDto: CreateCustomerDto): Promise<void> {
