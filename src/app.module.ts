@@ -1,13 +1,13 @@
 import { Module } from '@nestjs/common';
-import { MongooseModule } from '@nestjs/mongoose';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { BackofficeModule } from '@modules/backoffice/backoffice.module';
+import { StoreModule } from './modules/store/store.module';
 
 @Module({
   imports: [
-    MongooseModule.forRoot('mongodb://192.168.99.100/curso_nest_balta'),
     BackofficeModule,
+    StoreModule,
   ],
   controllers: [AppController],
   providers: [AppService],

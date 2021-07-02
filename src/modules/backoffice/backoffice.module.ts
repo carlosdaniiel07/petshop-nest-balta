@@ -10,6 +10,7 @@ import { PetService } from '@modules/backoffice/services/pet.service';
 
 @Module({
   imports: [
+    MongooseModule.forRoot('mongodb://192.168.99.100/curso_nest_balta'),
     MongooseModule.forFeature([
       {
         name: 'User',
