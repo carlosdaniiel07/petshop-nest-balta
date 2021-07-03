@@ -23,7 +23,9 @@ export class OrderService {
   }
 
   async findById(id: string): Promise<Order> {
-    const order = await this.repository.findOne(id);
+    const order = await this.repository.findOne(id, {
+      relations: ['items'],
+    });
 
     if (!order) {
       throw new ApiException(404, `Pedido não encontrado ${id}`);
