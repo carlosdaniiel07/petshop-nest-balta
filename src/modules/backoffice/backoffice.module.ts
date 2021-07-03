@@ -24,5 +24,6 @@ import { PetService } from '@modules/backoffice/services/pet.service';
   ],
   controllers: [CustomerController],
   providers: [AccountService, CustomerService, AddressService, PetService],
+  exports: [CustomerService],
 })
 export class BackofficeModule {}

@@ -2,7 +2,7 @@ import { BaseEntity } from '@shared/models/base-entity.model';
 import { Column, Entity } from 'typeorm';
 
 @Entity({
-  name: 'products',
+  name: 'product',
   schema: 'store',
 })
 export class Product extends BaseEntity {
@@ -11,14 +11,14 @@ export class Product extends BaseEntity {
     length: 100,
     nullable: false,
   })
-  title: string
+  title: string;
 
   @Column({
     name: 'description',
     length: 255,
     nullable: false,
   })
-  description: string
+  description: string;
 
   @Column({
     name: 'price',
@@ -26,5 +26,5 @@ export class Product extends BaseEntity {
     precision: 11,
     scale: 2,
   })
-  price: number
+  price: number;
 }

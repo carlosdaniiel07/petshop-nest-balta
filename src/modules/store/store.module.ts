@@ -3,6 +3,11 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { Product } from '@modules/store/entities/product.entity';
 import { ProductController } from '@modules/store/controllers/product.controller';
 import { ProductService } from '@modules/store/services/product.service';
+import { Order } from '@modules/store/entities/order.entity';
+import { OrderItem } from '@modules/store/entities/order-item.entity';
+import { OrderController } from '@modules/store/controllers/order.controller';
+import { OrderService } from '@modules/store/services/order.service';
+import { BackofficeModule } from '@modules/backoffice/backoffice.module';
 
 @Module({
   imports: [
@@ -15,11 +20,12 @@ import { ProductService } from '@modules/store/services/product.service';
       database: 'petshop_balta',
       synchronize: true,
       logging: ['query'],
-      entities: [Product],
+      entities: [Product, Order, OrderItem],
     }),
-    TypeOrmModule.forFeature([Product]),
+    TypeOrmModule.forFeature([Product, Order]),
+    BackofficeModule,
   ],
-  controllers: [ProductController],
-  providers: [ProductService],
+  controllers: [ProductController, OrderController],
+  providers: [ProductService, OrderService],
 })
 export class StoreModule {}
