@@ -18,6 +18,10 @@ export class AuthService {
       throw new ApiException(404, 'Usuário não encontrado ou senha incorreta');
     }
 
+    if (!user.active) {
+      throw new ApiException(400, 'Usuário bloqueado')
+    }
+
     const payload: JwtPayload = {
       sub: user.id,
       role: user.role,
