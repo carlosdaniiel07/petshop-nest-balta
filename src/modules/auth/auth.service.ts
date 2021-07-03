@@ -15,11 +15,11 @@ export class AuthService {
     const user = await this.accountService.findByUsername(username);
 
     if (!user || user.password !== password) {
-      throw new ApiException(404, 'Usuário não encontrado ou senha incorreta');
+      throw new ApiException(401, 'Usuário não encontrado ou senha incorreta');
     }
 
     if (!user.active) {
-      throw new ApiException(400, 'Usuário bloqueado')
+      throw new ApiException(401, 'Usuário bloqueado')
     }
 
     const payload: JwtPayload = {
