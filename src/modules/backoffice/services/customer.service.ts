@@ -27,6 +27,13 @@ export class CustomerService {
       .exec();
   }
 
+  async findById(id: string): Promise<Customer> {
+    return await this.customerModel
+      .findById(id)
+      .populate('user', 'username')
+      .exec();
+  }
+
   async findAllWithPagination({
     skip = 0,
     take = 10,

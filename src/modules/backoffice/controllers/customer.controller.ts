@@ -7,6 +7,7 @@ import {
   Post,
   Put,
   Query,
+  UseGuards,
 } from '@nestjs/common';
 import {
   CreateAddressDto,
@@ -20,6 +21,7 @@ import { Customer } from '@modules/backoffice/models/customer.model';
 import { CustomerService } from '@modules/backoffice/services/customer.service';
 import { AddressService } from '@modules/backoffice/services/address.service';
 import { PetService } from '@modules/backoffice/services/pet.service';
+import { JwtAuthGuard } from '@modules/auth/jwt-auth.guard';
 
 @Controller('v1/customers')
 export class CustomerController {
@@ -30,6 +32,7 @@ export class CustomerController {
   ) {}
 
   @Get()
+  @UseGuards(JwtAuthGuard)
   async list(): Promise<Customer[]> {
     return await this.customerService.findAll();
   }

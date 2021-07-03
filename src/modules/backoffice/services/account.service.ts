@@ -25,4 +25,10 @@ export class AccountService {
 
     return await new this.userModel(createUserDto).save();
   }
+
+  async findByUsername(username: string): Promise<User> {
+    return await this.userModel.findOne({
+      username,
+    });
+  }
 }
