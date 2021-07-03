@@ -2,6 +2,7 @@ import { AccountService } from '@modules/backoffice/services/account.service';
 import { Injectable } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { ApiException } from '@shared/models/api-exception.model';
+import { JwtPayload } from '@modules/auth/models/jwt-payload.model';
 
 @Injectable()
 export class AuthService {
@@ -17,8 +18,11 @@ export class AuthService {
       throw new ApiException(404, 'Usuário não encontrado ou senha incorreta');
     }
 
-    return await this.jwtService.signAsync({
+    const payload: JwtPayload = {
       sub: user.id,
-    });
+      role: user.role,
+    };
+
+    return await this.jwtService.signAsync(payload);
   }
 }

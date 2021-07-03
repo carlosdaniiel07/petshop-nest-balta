@@ -22,8 +22,11 @@ import { CustomerService } from '@modules/backoffice/services/customer.service';
 import { AddressService } from '@modules/backoffice/services/address.service';
 import { PetService } from '@modules/backoffice/services/pet.service';
 import { JwtAuthGuard } from '@modules/auth/jwt-auth.guard';
+import { Roles } from '@shared/decorators/role.decorator';
+import { UserRole } from '@modules/backoffice/enums/user-role.enum';
 
 @Controller('v1/customers')
+@UseGuards(JwtAuthGuard)
 export class CustomerController {
   constructor(
     private readonly customerService: CustomerService,
@@ -32,7 +35,7 @@ export class CustomerController {
   ) {}
 
   @Get()
-  @UseGuards(JwtAuthGuard)
+  @Roles(UserRole.Admin)
   async list(): Promise<Customer[]> {
     return await this.customerService.findAll();
   }
