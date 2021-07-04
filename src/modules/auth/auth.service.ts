@@ -19,7 +19,7 @@ export class AuthService {
     }
 
     if (!user.active) {
-      throw new ApiException(401, 'Usuário bloqueado')
+      throw new ApiException(401, 'Usuário bloqueado');
     }
 
     const payload: JwtPayload = {
@@ -27,6 +27,10 @@ export class AuthService {
       role: user.role,
     };
 
+    return await this.jwtService.signAsync(payload);
+  }
+
+  async refreshToken(payload: JwtPayload): Promise<string> {
     return await this.jwtService.signAsync(payload);
   }
 }
