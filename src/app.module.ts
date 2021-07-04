@@ -6,9 +6,10 @@ import { StoreModule } from '@modules/store/store.module';
 import { AuthModule } from '@modules/auth/auth.module';
 import { APP_GUARD } from '@nestjs/core';
 import { RolesGuard } from '@shared/guards/roles.guard';
+import { AgendaModule } from './modules/agenda/agenda.module';
 
 @Module({
-  imports: [BackofficeModule, StoreModule, AuthModule],
+  imports: [BackofficeModule, StoreModule, AuthModule, AgendaModule],
   controllers: [AppController],
   providers: [
     AppService,
