@@ -27,5 +27,6 @@ import { BackofficeModule } from '@modules/backoffice/backoffice.module';
   ],
   controllers: [ProductController, OrderController],
   providers: [ProductService, OrderService],
+  exports: [ProductService],
 })
 export class StoreModule {}
